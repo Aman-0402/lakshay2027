@@ -33,8 +33,9 @@
 .hero-title {
   position: absolute;
   top: 80px;
-  left: 48px;
-  font-size: clamp(18px, 2.4vw, 36px);
+  left: 198px;
+  text-align: left;
+  font-size: clamp(44px, 5.8vw, 86px);
   font-weight: 900;
   color: #fff;
   letter-spacing: -0.5px;
