@@ -1,0 +1,78 @@
+.ethno-section {
+  background: #0d0d0d;
+  padding: 0 32px 80px;
+  width: 100%;
+  box-sizing: border-box;
+  border-top: 1px solid #1f1f1f;
+}
+
+.ethno-brand {
+  padding: 56px 0 32px;
+}
+
+.ethno-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #e53e3e;
+  margin: 0 0 10px;
+}
+
+.ethno-heading {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -1px;
+  margin: 0;
+  line-height: 1;
+}
+
+.ethno-managers-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 760px;
+}
+
+.ethno-trainers-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 900px) {
+  .ethno-trainers-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .ethno-managers-grid {
+    grid-template-columns: 1fr;
+  }
+  .ethno-trainers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.ethno-card {
+  border-style: dashed !important;
+  border-color: #2a2a2a !important;
+}
+
+.ethno-avatar-placeholder {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: #252525;
+  border: 2px dashed #3a3a3a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+}
+
+.ethno-placeholder-name {
+  color: #aaa !important;
+}
