@@ -1,3 +1,4 @@
+import { Route, Switch } from 'wouter'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import LabsSection from './components/LabsSection'
@@ -7,6 +8,7 @@ import MyTeam from './components/MyTeam'
 import EthnotechTeam from './components/EthnotechTeam'
 import Footer from './components/Footer'
 import LabTicker from './components/LabTicker'
+import Labs from './pages/Labs'
 import './styles/animations.css'
 import './components/Navbar.css'
 import './components/Hero.css'
@@ -18,11 +20,11 @@ import './components/Partners.css'
 import './components/MyTeam.css'
 import './components/EthnotechTeam.css'
 import './components/Footer.css'
+import './pages/Labs.css'
 
-function App() {
+function Home() {
   return (
     <>
-      <Navbar />
       <Hero />
       <LabTicker />
       <LabsSection />
@@ -31,6 +33,18 @@ function App() {
       <MyTeam />
       <EthnotechTeam />
       <Footer />
+    </>
+  )
+}
+
+function App() {
+  return (
+    <>
+      <Navbar />
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/labs" component={Labs} />
+      </Switch>
     </>
   )
 }

@@ -86,6 +86,8 @@
 .navbar-links li a:hover { color: #fff; }
 .navbar.scrolled .navbar-links li a:hover { color: #0a0a0a; }
 .navbar-links li a:hover::after { width: 100%; }
+.navbar.scrolled .nav-active { color: #0a0a0a !important; }
+.nav-active::after { width: 100% !important; }
 
 .navbar-actions {
   display: flex;
