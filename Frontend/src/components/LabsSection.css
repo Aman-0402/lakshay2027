@@ -1,7 +1,6 @@
 .labs-section {
-  padding: 64px 32px;
-  max-width: 1280px;
-  margin: 0 auto;
+  background: #fff;
+  padding: 88px 40px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -11,38 +10,42 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 24px;
-  margin-bottom: 40px;
+  margin-bottom: 48px;
   flex-wrap: wrap;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .labs-eyebrow {
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 2.5px;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  color: #555;
-  margin: 0 0 10px;
+  color: #e53e3e;
+  margin: 0 0 12px;
 }
 
 .labs-title {
-  font-size: clamp(28px, 4vw, 52px);
+  font-size: clamp(30px, 4vw, 52px);
   font-weight: 900;
   color: #0a0a0a;
-  letter-spacing: -1px;
-  margin: 0 0 12px;
+  letter-spacing: -1.5px;
+  margin: 0 0 14px;
   line-height: 1;
 }
 
 .labs-subtitle {
   font-size: 14px;
-  color: #555;
+  color: #777;
   max-width: 340px;
-  line-height: 1.6;
+  line-height: 1.65;
   margin: 0;
 }
 
 .labs-subtitle-highlight {
   color: #2563eb;
+  font-weight: 600;
 }
 
 .labs-view-more {
@@ -50,50 +53,52 @@
   background: #0a0a0a;
   color: #fff;
   border: none;
-  padding: 14px 28px;
+  padding: 14px 30px;
   border-radius: 999px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 0.15s, transform 0.15s;
   white-space: nowrap;
+  text-transform: uppercase;
 }
 
 .labs-view-more:hover {
-  background: #333;
+  background: #2a2a2a;
+  transform: translateY(-1px);
 }
 
 .labs-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
-@media (max-width: 768px) {
-  .labs-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+@media (max-width: 900px) {
+  .labs-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-@media (max-width: 480px) {
-  .labs-grid {
-    grid-template-columns: 1fr;
-  }
+@media (max-width: 560px) {
+  .labs-grid { grid-template-columns: 1fr; }
 }
 
 .lab-card {
-  border: 1px solid #e5e5e5;
-  border-radius: 10px;
+  border: 1px solid #ebebeb;
+  border-radius: 16px;
   overflow: hidden;
   background: #fff;
   display: flex;
   flex-direction: column;
-  transition: box-shadow 0.15s;
+  transition: box-shadow 0.25s, transform 0.25s;
+  cursor: pointer;
 }
 
 .lab-card:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
 }
 
 .lab-card-img-wrap {
@@ -108,23 +113,30 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.4s ease;
+}
+
+.lab-card:hover .lab-card-img {
+  transform: scale(1.06);
 }
 
 .lab-badge {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #fff;
+  top: 12px;
+  right: 12px;
+  background: rgba(255,255,255,0.95);
   color: #0a0a0a;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.8px;
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: 999px;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
 }
 
 .lab-card-body {
-  padding: 14px 16px 16px;
+  padding: 18px 20px 20px;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -134,52 +146,51 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .lab-category {
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 1px;
-  color: #555;
-  border: 1px solid #ddd;
-  padding: 3px 8px;
-  border-radius: 4px;
+  letter-spacing: 1.2px;
+  color: #666;
+  border: 1px solid #e5e5e5;
+  padding: 4px 10px;
+  border-radius: 6px;
   text-transform: uppercase;
+  background: #fafafa;
 }
 
-.lab-icon {
-  font-size: 16px;
-}
+.lab-icon { font-size: 16px; }
 
 .lab-name {
   font-size: 15px;
   font-weight: 800;
   color: #0a0a0a;
-  margin: 0 0 6px;
+  margin: 0 0 8px;
   letter-spacing: -0.3px;
 }
 
 .lab-desc {
-  font-size: 12px;
-  color: #666;
-  line-height: 1.55;
-  margin: 0 0 12px;
+  font-size: 12.5px;
+  color: #777;
+  line-height: 1.6;
+  margin: 0 0 14px;
   flex: 1;
 }
 
 .lab-resources {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   flex-wrap: wrap;
-  border-top: 1px solid #f0f0f0;
-  padding-top: 10px;
+  border-top: 1px solid #f2f2f2;
+  padding-top: 12px;
 }
 
 .lab-resource {
   font-size: 10px;
   font-weight: 700;
-  color: #444;
-  letter-spacing: 0.5px;
+  color: #555;
+  letter-spacing: 0.6px;
   text-transform: uppercase;
 }

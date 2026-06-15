@@ -1,13 +1,13 @@
 .ethno-section {
-  background: #0d0d0d;
-  padding: 0 32px 80px;
+  background: #0a0a0a;
+  padding: 0 40px 96px;
   width: 100%;
   box-sizing: border-box;
-  border-top: 1px solid #1f1f1f;
+  border-top: 1px solid #181818;
 }
 
 .ethno-brand {
-  padding: 56px 0 32px;
+  padding: 64px 0 36px;
 }
 
 .ethno-label {
@@ -16,14 +16,14 @@
   letter-spacing: 3px;
   text-transform: uppercase;
   color: #e53e3e;
-  margin: 0 0 10px;
+  margin: 0 0 12px;
 }
 
 .ethno-heading {
-  font-size: clamp(28px, 4vw, 48px);
+  font-size: clamp(28px, 4vw, 52px);
   font-weight: 900;
   color: #ffffff;
-  letter-spacing: -1px;
+  letter-spacing: -1.5px;
   margin: 0;
   line-height: 1;
 }
@@ -32,7 +32,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  max-width: 760px;
+  max-width: 720px;
 }
 
 .ethno-trainers-grid {
@@ -42,37 +42,46 @@
 }
 
 @media (max-width: 900px) {
-  .ethno-trainers-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  .ethno-trainers-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 600px) {
-  .ethno-managers-grid {
-    grid-template-columns: 1fr;
-  }
-  .ethno-trainers-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .ethno-managers-grid { grid-template-columns: 1fr; }
+  .ethno-trainers-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 .ethno-card {
-  border-style: dashed !important;
-  border-color: #2a2a2a !important;
+  background: #111 !important;
+  border: 1.5px dashed #222 !important;
+  transition: border-color 0.2s, transform 0.25s !important;
+}
+
+.ethno-card:hover {
+  border-color: #333 !important;
+  transform: translateY(-3px) !important;
 }
 
 .ethno-avatar-placeholder {
   width: 88px;
   height: 88px;
   border-radius: 50%;
-  background: #252525;
-  border: 2px dashed #3a3a3a;
+  background: #1a1a1a;
+  border: 2px dashed #333;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #555;
+  color: #444;
+  transition: border-color 0.2s;
+}
+
+.ethno-card:hover .ethno-avatar-placeholder {
+  border-color: #555;
 }
 
 .ethno-placeholder-name {
-  color: #aaa !important;
+  color: #666 !important;
+}
+
+.ethno-trainers-label {
+  margin-top: 48px;
 }

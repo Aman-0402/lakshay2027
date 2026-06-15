@@ -1,39 +1,36 @@
+import { useInView } from '../hooks/useInView'
 import swapnilImg from '../assets/team/Dr. Swapnil M Parikh.jpg'
 import divyeshImg from '../assets/team/Divyesh Hariyani.jpg'
 import belaImg from '../assets/team/Prof. Bela Shah.jpg'
 
 const members = [
-  {
-    name: 'Dr. Swapnil M Parikh',
-    role: 'Dean of Faculty of Engineering & Technology',
-    img: swapnilImg,
-  },
-  {
-    name: 'Divyesh Hariyani',
-    role: 'Manager - Centre of Future Skills',
-    img: divyeshImg,
-  },
-  {
-    name: 'Prof. Bela Shah',
-    role: 'Project Manager & Assistant Professor',
-    img: belaImg,
-  },
+  { name: 'Dr. Swapnil M Parikh', role: 'Dean of Faculty of Engineering & Technology', img: swapnilImg },
+  { name: 'Divyesh Hariyani', role: 'Manager - Centre of Future Skills', img: divyeshImg },
+  { name: 'Prof. Bela Shah', role: 'Project Manager & Assistant Professor', img: belaImg },
 ]
 
 export default function MyTeam() {
+  const { ref: headRef, visible: headVisible } = useInView()
+  const { ref: gridRef, visible: gridVisible } = useInView()
+
   return (
     <section className="team-section">
-      <div className="team-header">
+      <div
+        ref={headRef as React.RefObject<HTMLDivElement>}
+        className={`team-header reveal${headVisible ? ' visible' : ''}`}
+      >
         <p className="team-eyebrow">THE PEOPLE BEHIND LAKSHYA</p>
         <h2 className="team-title">MY TEAM</h2>
         <p className="team-subtitle">
           Meet the mentors, managers, and developers powering the future of skills at Parul University.
         </p>
       </div>
-
       <div className="team-inner">
         <p className="team-category">LEADERSHIP &amp; MENTORSHIP</p>
-        <div className="team-grid">
+        <div
+          ref={gridRef as React.RefObject<HTMLDivElement>}
+          className={`team-grid stagger${gridVisible ? ' visible' : ''}`}
+        >
           {members.map(m => (
             <div className="team-card" key={m.name}>
               <img src={m.img} alt={m.name} className="team-avatar" />

@@ -6,8 +6,11 @@ import Partners from './components/Partners'
 import MyTeam from './components/MyTeam'
 import EthnotechTeam from './components/EthnotechTeam'
 import Footer from './components/Footer'
+import LabTicker from './components/LabTicker'
+import './styles/animations.css'
 import './components/Navbar.css'
 import './components/Hero.css'
+import './components/LabTicker.css'
 import './components/LabsSection.css'
 import './components/PlatformInsights.css'
 import './components/Partners.css'
@@ -20,6 +23,7 @@ function App() {
     <>
       <Navbar />
       <Hero />
+      <LabTicker />
       <LabsSection />
       <PlatformInsights />
       <Partners />
