@@ -1,4 +1,6 @@
 import heroVideo from '../assets/hero video.mp4'
+import HeroTitle from './HeroTitle'
+import '../components/HeroTitle.css'
 
 export default function Hero() {
   return (
@@ -6,7 +8,7 @@ export default function Hero() {
       <video className="hero-bg" src={heroVideo} autoPlay muted loop playsInline />
       <div className="hero-overlay" />
 
-      <p className="hero-title">Where Future Skills Are Built.</p>
+      <HeroTitle />
 
       <div className="hero-center">
         <div className="hero-ripple">

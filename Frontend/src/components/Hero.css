@@ -29,24 +29,6 @@
   );
 }
 
-/* ── Title top-left ── */
-.hero-title {
-  position: absolute;
-  top: 80px;
-  left: 150px;
-  text-align: left;
-  font-size: clamp(44px, 5.8vw, 86px);
-  font-weight: 900;
-  color: #fff;
-  letter-spacing: -0.5px;
-  line-height: 1.15;
-  margin: 0;
-  white-space: nowrap;
-  text-align: left;
-  z-index: 2;
-  opacity: 0;
-  animation: fadeUp 0.7s 0.2s cubic-bezier(0.22,1,0.36,1) forwards;
-}
 
 /* ── Center ripple ── */
 .hero-center {
