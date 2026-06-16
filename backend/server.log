@@ -1,0 +1,3 @@
+Watching for file changes with StatReloader
+[16/Jun/2026 18:24:09] "GET /api/labs/ HTTP/1.1" 200 3223
+[16/Jun/2026 18:24:09] "GET /api/labs/categories/ HTTP/1.1" 200 116
