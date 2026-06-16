@@ -30,6 +30,7 @@ import './pages/Labs.css'
 import './pages/LabDetail.css'
 import './pages/Auth.css'
 import './pages/Dashboard.css'
+import './components/DashboardLayout.css'
 
 function Home() {
   return (
