@@ -15,8 +15,8 @@ export default function Login() {
     setError('')
     setLoading(true)
     try {
-      await login(username, password)
-      navigate('/labs')
+      const u = await login(username, password)
+      navigate(u.is_staff ? '/admin-dashboard' : '/dashboard')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed')
     } finally {

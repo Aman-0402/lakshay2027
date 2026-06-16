@@ -37,7 +37,9 @@ export default function Navbar() {
         <div className="navbar-actions">
           {user ? (
             <>
-              <span className="navbar-username">Hi, {user.first_name || user.username}</span>
+              <Link href={user.is_staff ? '/admin-dashboard' : '/dashboard'} className="navbar-username">
+                Hi, {user.first_name || user.username}
+              </Link>
               <button type="button" className="navbar-login navbar-logout-btn" onClick={handleLogout}>
                 Logout
               </button>

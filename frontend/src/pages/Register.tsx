@@ -19,8 +19,8 @@ export default function Register() {
     setError('')
     setLoading(true)
     try {
-      await register(form)
-      navigate('/labs')
+      const u = await register(form)
+      navigate(u.is_staff ? '/admin-dashboard' : '/dashboard')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Registration failed')
     } finally {

@@ -1,3 +1,5 @@
+from datetime import date, timedelta
+
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
@@ -35,6 +37,15 @@ class BookingSerializer(serializers.ModelSerializer):
         model = Booking
         fields = ['id', 'lab', 'lab_name', 'user', 'date', 'reason', 'status', 'reviewed_by', 'created_at']
         read_only_fields = ['status', 'reviewed_by', 'created_at']
+
+    def validate_date(self, value):
+        today = date.today()
+        max_date = today + timedelta(days=14)
+        if value < today:
+            raise serializers.ValidationError('Booking date cannot be in the past.')
+        if value > max_date:
+            raise serializers.ValidationError('Bookings only allowed up to 2 weeks in advance.')
+        return value
 
 
 class TeamMemberSerializer(serializers.ModelSerializer):

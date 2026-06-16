@@ -41,4 +41,8 @@ export const api = {
     request('/bookings/', { method: 'POST', body: JSON.stringify(data) }),
 
   getMyBookings: () => request('/bookings/'),
+
+  approveBooking: (id: number) => request(`/bookings/${id}/approve/`, { method: 'POST' }),
+
+  rejectBooking: (id: number) => request(`/bookings/${id}/reject/`, { method: 'POST' }),
 }

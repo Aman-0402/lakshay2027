@@ -13,6 +13,8 @@ import Labs from './pages/Labs'
 import LabDetail from './pages/LabDetail'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import StudentDashboard from './pages/StudentDashboard'
+import AdminDashboard from './pages/AdminDashboard'
 import './styles/animations.css'
 import './components/Navbar.css'
 import './components/Hero.css'
@@ -27,6 +29,7 @@ import './components/Footer.css'
 import './pages/Labs.css'
 import './pages/LabDetail.css'
 import './pages/Auth.css'
+import './pages/Dashboard.css'
 
 function Home() {
   return (
@@ -53,6 +56,8 @@ function App() {
         <Route path="/labs/:slug" component={LabDetail} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
+        <Route path="/dashboard" component={StudentDashboard} />
+        <Route path="/admin-dashboard" component={AdminDashboard} />
       </Switch>
     </AuthProvider>
   )

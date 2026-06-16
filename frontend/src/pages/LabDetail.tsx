@@ -16,6 +16,13 @@ export default function LabDetail() {
   const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
 
+  const toISO = (d: Date) => d.toISOString().slice(0, 10)
+  const today = new Date()
+  const twoWeeksOut = new Date(today)
+  twoWeeksOut.setDate(today.getDate() + 14)
+  const minDate = toISO(today)
+  const maxDate = toISO(twoWeeksOut)
+
   if (!lab) {
     return (
       <div className="ld-not-found">
@@ -97,10 +104,13 @@ export default function LabDetail() {
                   className="ld-input"
                   value={date}
                   onChange={e => setDate(e.target.value)}
+                  min={minDate}
+                  max={maxDate}
                   required
                   disabled={!user}
                 />
               </label>
+              <p className="ld-date-hint">Bookable window: today through 2 weeks ahead ({minDate} – {maxDate})</p>
               <label className="ld-label">
                 Reason / Project Description
                 <textarea
