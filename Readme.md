@@ -91,7 +91,7 @@ Frontend `.env`: `VITE_API_URL=http://127.0.0.1:8000/api`.
 
 ## Pages
 
-- **`/`** — Hero (video + interactive title) → Lab ticker → Featured labs preview → Platform Insights → Partners → My Team → Ethnotech Team → Footer
+- **`/`** — Hero (video + interactive title) → Lab ticker → **Featured labs preview** (fetched `?featured=true`) → Platform Insights → Partners → My Team → Ethnotech Team → Footer
 - **`/labs`** — Full lab directory, category filters + search, live from API
 - **`/labs/:slug`** — Lab detail + booking request form (date locked to next 14 days, reason required)
 - **`/login`, `/register`** — Auth, redirects by role on success
@@ -110,6 +110,10 @@ Frontend `.env`: `VITE_API_URL=http://127.0.0.1:8000/api`.
 
 - Admin: `lakshay` / `Lakshay@123`
 - Student: `student1` / `Student@123`
+
+## Completed features
+
+- ✅ **Featured labs on homepage**: `LabsSection.tsx` fetches labs with `?featured=true` from backend. Only featured labs display in the preview.
 
 ## Notes
 

@@ -30,7 +30,7 @@ Frontend was built section-by-section from screenshots the user pasted inline (n
 
 ## Frontend specifics
 
-- **Source of truth for labs is now the backend**, not a static array. `src/data/labsData.ts` only holds `IMAGE_FALLBACK` (slug → bundled image) and `PLACEHOLDER_IMAGE` — used when a backend `Lab.image` is null. `src/hooks/useLabs.ts` is the fetch hook (`useLabs()`, `getLabImage(lab)`).
+- **Source of truth for labs is the backend**. `src/data/labsData.ts` only holds `IMAGE_FALLBACK` (slug → bundled image) and `PLACEHOLDER_IMAGE` — used when a backend `Lab.image` is null. `src/hooks/useLabs.ts` is the fetch hook (`useLabs()`, `getLabImage(lab)`). Pass `{ featured: true }` to show only featured labs (used by `LabsSection.tsx` on homepage).
 - **Slug mismatch gotcha**: Django's `slugify("AR/VR LAB")` → `arvr-lab`, NOT `ar-vr-lab` (JS slugify would produce the latter). Always verify real slugs via `GET /api/labs/` before hardcoding fallback-image keys.
 - Auth state: `src/context/AuthContext.tsx`, persisted to `localStorage` (`token`, `user` JSON). `useAuth()` hook everywhere else.
 - Role-based redirect after login/register: `user.is_staff` → `/admin-dashboard`, else → `/dashboard`.
@@ -40,6 +40,10 @@ Frontend was built section-by-section from screenshots the user pasted inline (n
 - Animations: `useInView` hook + `.reveal`/`.stagger` classes from `src/styles/animations.css`. No animation library.
 - Navbar: fixed position, transparent over hero video on `/` only, glassmorphism (`blur(16px) saturate(180%)`) on scroll or any other route.
 - **CSS linter "hints"** about `transform`/`opacity` in `@keyframes` triggering "Composite/Paint" are false-positive noise — these are exactly the GPU-accelerated properties that should be animated. Ignore them.
+
+## Completed features
+
+- ✅ **Featured labs on homepage** (`LabsSection.tsx`): Fetches `GET /api/labs/?featured=true`, displays only featured labs in grid. Link to full `/labs` directory. Integrated with scroll-reveal animations.
 
 ## Known placeholder/incomplete content
 
