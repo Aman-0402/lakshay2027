@@ -12,9 +12,18 @@ class LabAdmin(admin.ModelAdmin):
 
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
-    list_display = ['name', 'lab', 'date', 'status']
+    list_display = ['user', 'lab', 'date', 'status', 'reviewed_by']
     list_filter = ['status', 'date']
-    search_fields = ['name', 'email']
+    search_fields = ['user__username', 'user__email', 'reason']
+    actions = ['approve_bookings', 'reject_bookings']
+
+    @admin.action(description='Approve selected bookings')
+    def approve_bookings(self, request, queryset):
+        queryset.update(status='approved', reviewed_by=request.user)
+
+    @admin.action(description='Reject selected bookings')
+    def reject_bookings(self, request, queryset):
+        queryset.update(status='rejected', reviewed_by=request.user)
 
 
 @admin.register(TeamMember)

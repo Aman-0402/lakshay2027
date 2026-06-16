@@ -1,3 +1,9 @@
 Watching for file changes with StatReloader
-[16/Jun/2026 18:24:09] "GET /api/labs/ HTTP/1.1" 200 3223
-[16/Jun/2026 18:24:09] "GET /api/labs/categories/ HTTP/1.1" 200 116
+[16/Jun/2026 18:41:47] "GET /api/labs/ HTTP/1.1" 200 3223
+[16/Jun/2026 20:50:00] "OPTIONS /api/auth/login/ HTTP/1.1" 200 0
+[16/Jun/2026 20:50:01] "POST /api/auth/login/ HTTP/1.1" 200 155
+[16/Jun/2026 20:50:34] "POST /api/auth/login/ HTTP/1.1" 200 170
+[16/Jun/2026 20:51:05] "OPTIONS /api/labs/abb-lab/ HTTP/1.1" 200 0
+[16/Jun/2026 20:51:06] "GET /api/labs/abb-lab/ HTTP/1.1" 200 260
+[16/Jun/2026 20:51:06] "OPTIONS /api/bookings/ HTTP/1.1" 200 0
+[16/Jun/2026 20:51:06] "POST /api/bookings/ HTTP/1.1" 201 288

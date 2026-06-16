@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.utils.text import slugify
 
@@ -27,22 +28,25 @@ class Lab(models.Model):
 class Booking(models.Model):
     STATUS_CHOICES = [
         ('pending', 'Pending'),
-        ('confirmed', 'Confirmed'),
-        ('cancelled', 'Cancelled'),
+        ('approved', 'Approved'),
+        ('rejected', 'Rejected'),
     ]
 
     lab = models.ForeignKey(Lab, on_delete=models.CASCADE, related_name='bookings')
-    name = models.CharField(max_length=120)
-    email = models.EmailField()
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='bookings')
     date = models.DateField()
+    reason = models.TextField(help_text='Project/use-case reason — required for admin approval')
     status = models.CharField(max_length=12, choices=STATUS_CHOICES, default='pending')
+    reviewed_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name='reviewed_bookings'
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['-created_at']
 
     def __str__(self):
-        return f'{self.name} → {self.lab.name} on {self.date}'
+        return f'{self.user} → {self.lab.name} on {self.date} ({self.status})'
 
 
 class TeamMember(models.Model):

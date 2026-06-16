@@ -1,0 +1,237 @@
+.ld-page {
+  min-height: 100vh;
+  background: #f8f8f8;
+}
+
+.ld-not-found {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding-top: 64px;
+}
+
+.ld-not-found a { color: #0a0a0a; font-weight: 700; }
+
+/* ── Hero ── */
+.ld-hero {
+  position: relative;
+  height: 360px;
+  overflow: hidden;
+}
+
+.ld-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ld-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.5) 100%);
+}
+
+.ld-hero-content {
+  position: absolute;
+  bottom: 32px;
+  left: 0;
+  right: 0;
+  padding: 0 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ld-back {
+  color: rgba(255,255,255,0.75);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-bottom: 8px;
+}
+
+.ld-back:hover { color: #fff; }
+
+.ld-cat {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(255,255,255,0.15);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  padding: 5px 14px;
+  border-radius: 999px;
+  width: fit-content;
+}
+
+.ld-title {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -1px;
+  margin: 0;
+}
+
+/* ── Body ── */
+.ld-body {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 56px 48px 80px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 48px;
+}
+
+@media (max-width: 800px) {
+  .ld-body { grid-template-columns: 1fr; }
+}
+
+.ld-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #888;
+  margin: 0 0 14px;
+}
+
+.ld-desc {
+  font-size: 16px;
+  line-height: 1.75;
+  color: #333;
+  margin: 0 0 36px;
+}
+
+.ld-resources-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #888;
+  margin: 0 0 14px;
+}
+
+.ld-resources {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ld-resource-tag {
+  font-size: 12px;
+  font-weight: 700;
+  color: #333;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  padding: 8px 14px;
+  border-radius: 999px;
+}
+
+/* ── Booking Card ── */
+.ld-booking-card {
+  background: #fff;
+  border: 1px solid #ebebeb;
+  border-radius: 18px;
+  padding: 32px;
+  align-self: start;
+  position: sticky;
+  top: 96px;
+}
+
+.ld-booking-title {
+  font-size: 19px;
+  font-weight: 800;
+  color: #0a0a0a;
+  margin: 0 0 8px;
+}
+
+.ld-booking-subtitle {
+  font-size: 13px;
+  color: #888;
+  line-height: 1.6;
+  margin: 0 0 24px;
+}
+
+.ld-login-notice {
+  background: #fef3f2;
+  color: #b91c1c;
+  font-size: 13px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  margin: 0 0 20px;
+}
+
+.ld-login-notice a { color: #b91c1c; font-weight: 700; text-decoration: underline; }
+
+.ld-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ld-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #555;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ld-input, .ld-textarea {
+  background: #f7f7f7;
+  border: 1.5px solid #e8e8e8;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #0a0a0a;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.15s;
+  resize: vertical;
+}
+
+.ld-input:focus, .ld-textarea:focus { border-color: #0a0a0a; }
+.ld-input:disabled, .ld-textarea:disabled { background: #efefef; color: #aaa; }
+
+.ld-error {
+  font-size: 13px;
+  color: #b91c1c;
+  background: #fef3f2;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin: 0;
+}
+
+.ld-success {
+  font-size: 14px;
+  color: #166534;
+  background: #f0fdf4;
+  padding: 16px 16px;
+  border-radius: 10px;
+  line-height: 1.6;
+}
+
+.ld-submit {
+  margin-top: 4px;
+  background: #0a0a0a;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.ld-submit:hover:not(:disabled) { background: #2a2a2a; transform: translateY(-1px); }
+.ld-submit:disabled { opacity: 0.4; cursor: not-allowed; }

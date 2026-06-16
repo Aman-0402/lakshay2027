@@ -129,3 +129,19 @@
   transform: translateY(-1px);
   opacity: 0.9;
 }
+
+.navbar-username {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  transition: color 0.35s;
+}
+
+.navbar.scrolled .navbar-username { color: #333; }
+
+.navbar-logout-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}

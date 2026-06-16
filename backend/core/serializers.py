@@ -1,3 +1,5 @@
+from django.contrib.auth.models import User
+from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from .models import Lab, Booking, TeamMember, Partner
 
@@ -8,11 +10,31 @@ class LabSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'slug', 'category', 'description', 'image', 'resources', 'available']
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'first_name', 'is_staff']
+
+
+class RegisterSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, validators=[validate_password])
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'password']
+
+    def create(self, validated_data):
+        return User.objects.create_user(**validated_data)
+
+
 class BookingSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+    lab_name = serializers.CharField(source='lab.name', read_only=True)
+
     class Meta:
         model = Booking
-        fields = ['id', 'lab', 'name', 'email', 'date', 'status', 'created_at']
-        read_only_fields = ['status', 'created_at']
+        fields = ['id', 'lab', 'lab_name', 'user', 'date', 'reason', 'status', 'reviewed_by', 'created_at']
+        read_only_fields = ['status', 'reviewed_by', 'created_at']
 
 
 class TeamMemberSerializer(serializers.ModelSerializer):
