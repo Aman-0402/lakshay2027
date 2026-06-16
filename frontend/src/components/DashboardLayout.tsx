@@ -38,7 +38,7 @@ export default function DashboardLayout({ children, title }: { children: ReactNo
   const navItems: NavItem[] = isAdmin
     ? [
         { label: 'Overview', href: '/admin-dashboard', icon: ICONS.overview },
-        { label: 'Browse Labs', href: '/labs', icon: ICONS.labs },
+        { label: 'Manage Labs', href: '/admin-dashboard/labs', icon: ICONS.labs },
       ]
     : [
         { label: 'Overview', href: '/dashboard', icon: ICONS.overview },

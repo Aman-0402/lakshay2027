@@ -9,7 +9,11 @@ from .models import Lab, Booking, TeamMember, Partner
 class LabSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lab
-        fields = ['id', 'name', 'slug', 'category', 'description', 'image', 'resources', 'available']
+        fields = [
+            'id', 'name', 'slug', 'category', 'description', 'image',
+            'resources', 'available', 'featured', 'is_permanent',
+        ]
+        read_only_fields = ['slug', 'is_permanent']
 
 
 class UserSerializer(serializers.ModelSerializer):

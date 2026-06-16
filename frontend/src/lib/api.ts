@@ -1,13 +1,21 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api'
+const ORIGIN_URL = API_URL.replace(/\/api\/?$/, '')
 
 function getToken() {
   return localStorage.getItem('token')
 }
 
+export function resolveImageUrl(path?: string | null) {
+  if (!path) return null
+  if (path.startsWith('http')) return path
+  return `${ORIGIN_URL}${path}`
+}
+
 async function request(path: string, options: RequestInit = {}) {
   const token = getToken()
+  const isFormData = options.body instanceof FormData
   const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
+    ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
     ...(options.headers as Record<string, string>),
   }
   if (token) headers.Authorization = `Token ${token}`
@@ -30,12 +38,22 @@ export const api = {
 
   me: () => request('/auth/me/'),
 
-  getLabs: (params?: { search?: string; category?: string }) => {
+  getLabs: (params?: { search?: string; category?: string; featured?: boolean }) => {
     const qs = new URLSearchParams(params as Record<string, string>).toString()
     return request(`/labs/${qs ? `?${qs}` : ''}`)
   },
 
   getLab: (slug: string) => request(`/labs/${slug}/`),
+
+  createLab: (data: FormData) => request('/labs/', { method: 'POST', body: data }),
+
+  updateLab: (slug: string, data: FormData | Record<string, unknown>) =>
+    request(`/labs/${slug}/`, {
+      method: 'PATCH',
+      body: data instanceof FormData ? data : JSON.stringify(data),
+    }),
+
+  deleteLab: (slug: string) => request(`/labs/${slug}/`, { method: 'DELETE' }),
 
   createBooking: (data: { lab: number; date: string; reason: string }) =>
     request('/bookings/', { method: 'POST', body: JSON.stringify(data) }),

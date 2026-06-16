@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from rest_framework import viewsets, generics, status, permissions
 from rest_framework.authtoken.models import Token
@@ -14,12 +15,19 @@ from .serializers import (
 )
 
 
+class IsAdminOrReadOnly(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return bool(request.user and request.user.is_staff)
+
+
 class LabViewSet(viewsets.ModelViewSet):
     queryset = Lab.objects.all()
     serializer_class = LabSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAdminOrReadOnly]
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['category']
+    filterset_fields = ['category', 'featured', 'available']
     lookup_field = 'slug'
 
     def get_queryset(self):
@@ -28,6 +36,11 @@ class LabViewSet(viewsets.ModelViewSet):
         if search:
             qs = qs.filter(Q(name__icontains=search) | Q(description__icontains=search))
         return qs
+
+    def perform_destroy(self, instance):
+        if instance.is_permanent:
+            raise PermissionDenied('This lab is permanent and cannot be deleted.')
+        instance.delete()
 
     @action(detail=False, methods=['get'])
     def categories(self, request):

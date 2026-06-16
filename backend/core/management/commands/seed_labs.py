@@ -18,12 +18,13 @@ LABS = [
 
 
 class Command(BaseCommand):
-    help = 'Seed the 12 labs matching frontend hardcoded data'
+    help = 'Seed the 12 permanent labs matching frontend hardcoded data'
 
     def handle(self, *args, **options):
         created = 0
-        for lab in LABS:
-            obj, was_created = Lab.objects.get_or_create(name=lab['name'], defaults=lab)
+        for i, lab in enumerate(LABS):
+            defaults = {**lab, 'is_permanent': True, 'featured': i < 3}
+            obj, was_created = Lab.objects.update_or_create(name=lab['name'], defaults=defaults)
             if was_created:
                 created += 1
-        self.stdout.write(self.style.SUCCESS(f'Seeded {created} new labs ({len(LABS)} total defined).'))
+        self.stdout.write(self.style.SUCCESS(f'Seeded {created} new labs ({len(LABS)} total, all marked permanent).'))

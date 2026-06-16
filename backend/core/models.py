@@ -11,6 +11,8 @@ class Lab(models.Model):
     image = models.ImageField(upload_to='labs/', blank=True, null=True)
     resources = models.JSONField(default=list, blank=True, help_text='List of strings, e.g. ["2 ROBOT", "30 CPU"]')
     available = models.BooleanField(default=True)
+    featured = models.BooleanField(default=False, help_text='Show on homepage preview')
+    is_permanent = models.BooleanField(default=False, help_text='Core lab — cannot be deleted')
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

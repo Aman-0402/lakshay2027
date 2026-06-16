@@ -1,15 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, Link, useLocation } from 'wouter'
-import { ALL_LABS } from '../data/labsData'
 import { useAuth } from '../context/AuthContext'
 import { api } from '../lib/api'
+import { getLabImage, type Lab } from '../hooks/useLabs'
 
 export default function LabDetail() {
   const { slug } = useParams<{ slug: string }>()
-  const lab = ALL_LABS.find(l => l.slug === slug)
   const { user } = useAuth()
   const [, navigate] = useLocation()
 
+  const [lab, setLab] = useState<Lab | null>(null)
+  const [labLoading, setLabLoading] = useState(true)
   const [date, setDate] = useState('')
   const [reason, setReason] = useState('')
   const [error, setError] = useState('')
@@ -22,6 +23,18 @@ export default function LabDetail() {
   twoWeeksOut.setDate(today.getDate() + 14)
   const minDate = toISO(today)
   const maxDate = toISO(twoWeeksOut)
+
+  useEffect(() => {
+    if (!slug) return
+    api.getLab(slug)
+      .then(setLab)
+      .catch(() => setLab(null))
+      .finally(() => setLabLoading(false))
+  }, [slug])
+
+  if (labLoading) {
+    return <div className="ld-not-found"><p>Loading...</p></div>
+  }
 
   if (!lab) {
     return (
@@ -41,9 +54,7 @@ export default function LabDetail() {
     setError('')
     setLoading(true)
     try {
-      // resolve backend lab id by slug (DB labs seeded to match same slugs)
-      const dbLab = await api.getLab(lab!.slug)
-      await api.createBooking({ lab: dbLab.id, date, reason })
+      await api.createBooking({ lab: lab!.id, date, reason })
       setSuccess(true)
       setDate('')
       setReason('')
@@ -57,7 +68,7 @@ export default function LabDetail() {
   return (
     <div className="ld-page">
       <section className="ld-hero">
-        <img src={lab.img} alt={lab.name} className="ld-hero-img" />
+        <img src={getLabImage(lab)} alt={lab.name} className="ld-hero-img" />
         <div className="ld-hero-overlay" />
         <div className="ld-hero-content">
           <Link href="/labs" className="ld-back">← All Labs</Link>
@@ -69,7 +80,7 @@ export default function LabDetail() {
       <div className="ld-body">
         <div className="ld-info">
           <h2 className="ld-section-title">About this lab</h2>
-          <p className="ld-desc">{lab.desc}</p>
+          <p className="ld-desc">{lab.description}</p>
 
           <h3 className="ld-resources-title">Available Resources</h3>
           <div className="ld-resources">
@@ -85,7 +96,11 @@ export default function LabDetail() {
             Submit a request with your project reason. Admin will review and approve.
           </p>
 
-          {!user && (
+          {!lab.available && (
+            <p className="ld-login-notice">This lab is currently unavailable for booking.</p>
+          )}
+
+          {!user && lab.available && (
             <p className="ld-login-notice">
               <Link href="/login">Login</Link> to book this lab.
             </p>
@@ -107,7 +122,7 @@ export default function LabDetail() {
                   min={minDate}
                   max={maxDate}
                   required
-                  disabled={!user}
+                  disabled={!user || !lab.available}
                 />
               </label>
               <p className="ld-date-hint">Bookable window: today through 2 weeks ahead ({minDate} – {maxDate})</p>
@@ -119,14 +134,14 @@ export default function LabDetail() {
                   onChange={e => setReason(e.target.value)}
                   placeholder="Describe your project and why you need this lab. A clear, specific reason improves approval chances."
                   required
-                  disabled={!user}
+                  disabled={!user || !lab.available}
                   rows={5}
                 />
               </label>
 
               {error && <p className="ld-error">{error}</p>}
 
-              <button type="submit" className="ld-submit" disabled={!user || loading}>
+              <button type="submit" className="ld-submit" disabled={!user || !lab.available || loading}>
                 {loading ? 'Submitting...' : 'Request Booking'}
               </button>
             </form>

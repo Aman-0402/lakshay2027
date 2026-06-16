@@ -1,6 +1,7 @@
 import { Route, Switch } from 'wouter'
 import { AuthProvider } from './context/AuthContext'
 import Navbar from './components/Navbar'
+import ScrollToTop from './components/ScrollToTop'
 import Hero from './components/Hero'
 import LabsSection from './components/LabsSection'
 import PlatformInsights from './components/PlatformInsights'
@@ -15,6 +16,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import StudentDashboard from './pages/StudentDashboard'
 import AdminDashboard from './pages/AdminDashboard'
+import ManageLabs from './pages/ManageLabs'
 import './styles/animations.css'
 import './components/Navbar.css'
 import './components/Hero.css'
@@ -50,6 +52,7 @@ function Home() {
 function App() {
   return (
     <AuthProvider>
+      <ScrollToTop />
       <Navbar />
       <Switch>
         <Route path="/" component={Home} />
@@ -59,6 +62,7 @@ function App() {
         <Route path="/register" component={Register} />
         <Route path="/dashboard" component={StudentDashboard} />
         <Route path="/admin-dashboard" component={AdminDashboard} />
+        <Route path="/admin-dashboard/labs" component={ManageLabs} />
       </Switch>
     </AuthProvider>
   )

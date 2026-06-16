@@ -4,10 +4,16 @@ from .models import Lab, Booking, TeamMember, Partner
 
 @admin.register(Lab)
 class LabAdmin(admin.ModelAdmin):
-    list_display = ['name', 'category', 'available']
-    list_filter = ['category', 'available']
+    list_display = ['name', 'category', 'available', 'featured', 'is_permanent']
+    list_filter = ['category', 'available', 'featured', 'is_permanent']
+    list_editable = ['featured', 'available']
     search_fields = ['name', 'description']
     prepopulated_fields = {'slug': ('name',)}
+
+    def has_delete_permission(self, request, obj=None):
+        if obj is not None and obj.is_permanent:
+            return False
+        return super().has_delete_permission(request, obj)
 
 
 @admin.register(Booking)

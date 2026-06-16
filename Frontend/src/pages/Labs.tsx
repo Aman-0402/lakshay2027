@@ -1,18 +1,21 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { Link } from 'wouter'
 import { useInView } from '../hooks/useInView'
-import { ALL_LABS, CATEGORIES } from '../data/labsData'
+import { useLabs, getLabImage } from '../hooks/useLabs'
 
 export default function Labs() {
   const [activeCategory, setActiveCategory] = useState('ALL')
   const [search, setSearch] = useState('')
+  const { labs, loading } = useLabs()
   const { ref: heroRef, visible: heroVisible } = useInView()
   const { ref: gridRef, visible: gridVisible } = useInView()
 
-  const filtered = ALL_LABS.filter(lab => {
+  const categories = useMemo(() => ['ALL', ...Array.from(new Set(labs.map(l => l.category)))], [labs])
+
+  const filtered = labs.filter(lab => {
     const matchCat = activeCategory === 'ALL' || lab.category === activeCategory
     const matchSearch = lab.name.toLowerCase().includes(search.toLowerCase()) ||
-      lab.desc.toLowerCase().includes(search.toLowerCase())
+      lab.description.toLowerCase().includes(search.toLowerCase())
     return matchCat && matchSearch
   })
 
@@ -28,11 +31,11 @@ export default function Labs() {
           <p className="lp-eyebrow">OUR FACILITIES</p>
           <h1 className="lp-title">World-Class Labs</h1>
           <p className="lp-subtitle">
-            14 state-of-the-art laboratories built to push the boundaries of technology,
+            {labs.length} state-of-the-art laboratories built to push the boundaries of technology,
             creativity, and hands-on learning.
           </p>
           <div className="lp-stats">
-            <div className="lp-stat"><span className="lp-stat-num">12+</span><span className="lp-stat-label">Active Labs</span></div>
+            <div className="lp-stat"><span className="lp-stat-num">{labs.length}+</span><span className="lp-stat-label">Active Labs</span></div>
             <div className="lp-stat-divider" />
             <div className="lp-stat"><span className="lp-stat-num">500+</span><span className="lp-stat-label">Workstations</span></div>
             <div className="lp-stat-divider" />
@@ -56,7 +59,7 @@ export default function Labs() {
           />
         </div>
         <div className="lp-filters">
-          {CATEGORIES.map(cat => (
+          {categories.map(cat => (
             <button
               key={cat}
               type="button"
@@ -75,16 +78,18 @@ export default function Labs() {
           ref={gridRef as React.RefObject<HTMLDivElement>}
           className={`lp-grid stagger${gridVisible ? ' visible' : ''}`}
         >
-          {filtered.length > 0 ? filtered.map(lab => (
-            <div className="lp-card" key={lab.name}>
+          {loading ? (
+            <p className="lp-no-results">Loading labs...</p>
+          ) : filtered.length > 0 ? filtered.map(lab => (
+            <div className="lp-card" key={lab.id}>
               <div className="lp-card-img-wrap">
-                <img src={lab.img} alt={lab.name} className="lp-card-img" />
-                <span className="lp-badge">◎ AVAILABLE</span>
+                <img src={getLabImage(lab)} alt={lab.name} className="lp-card-img" />
+                <span className="lp-badge">◎ {lab.available ? 'AVAILABLE' : 'UNAVAILABLE'}</span>
                 <span className="lp-cat-tag">{lab.category}</span>
               </div>
               <div className="lp-card-body">
                 <h3 className="lp-card-name">{lab.name}</h3>
-                <p className="lp-card-desc">{lab.desc}</p>
+                <p className="lp-card-desc">{lab.description}</p>
                 <div className="lp-card-resources">
                   {lab.resources.map(r => (
                     <span className="lp-resource" key={r}>⚡ {r}</span>

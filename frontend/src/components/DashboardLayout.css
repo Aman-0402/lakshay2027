@@ -374,3 +374,74 @@
 }
 
 .dl-panel-table { margin-bottom: 0; }
+
+/* ── Manage Labs ── */
+.ml-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.ml-add-btn {
+  background: #0a0a0a;
+  color: #fff;
+}
+
+.ml-form-panel {
+  margin-bottom: 24px;
+}
+
+.ml-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 16px;
+}
+
+.ml-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+@media (max-width: 600px) {
+  .ml-form-row { grid-template-columns: 1fr; }
+}
+
+.ml-submit { width: fit-content; padding: 13px 32px; }
+
+.ml-action-error { margin-bottom: 16px; }
+
+.ml-lab-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ml-thumb {
+  width: 40px;
+  height: 28px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.ml-toggle {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  border: none;
+  border-radius: 999px;
+  padding: 5px 14px;
+  cursor: pointer;
+  background: #e5e5e5;
+  color: #777;
+  transition: background 0.15s, color 0.15s;
+}
+
+.ml-toggle.on {
+  background: #166534;
+  color: #fff;
+}
+
+.ml-toggle:disabled { opacity: 0.5; cursor: not-allowed; }
