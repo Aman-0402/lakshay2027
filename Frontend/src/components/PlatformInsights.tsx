@@ -1,4 +1,7 @@
+import { useMemo } from 'react'
 import { useInView } from '../hooks/useInView'
+import { useCountUp } from '../hooks/useCountUp'
+import { useLabs } from '../hooks/useLabs'
 
 const stats = [
   {
@@ -8,7 +11,7 @@ const stats = [
         <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
       </svg>
     ),
-    value: '86+', label: 'REGISTERED USERS',
+    target: 86, suffix: '+', label: 'REGISTERED USERS',
   },
   {
     icon: (
@@ -17,7 +20,7 @@ const stats = [
         <circle cx="12" cy="12" r="3" />
       </svg>
     ),
-    value: '13', label: 'ACTIVE LABS',
+    target: 13, suffix: '', label: 'ACTIVE LABS',
   },
   {
     icon: (
@@ -27,7 +30,7 @@ const stats = [
         <path d="M9 16l2 2 4-4" />
       </svg>
     ),
-    value: '2+', label: 'BOOKINGS MADE',
+    target: 2, suffix: '+', label: 'BOOKINGS MADE',
   },
   {
     icon: (
@@ -36,16 +39,69 @@ const stats = [
         <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
       </svg>
     ),
-    value: '3+', label: 'ACTIVE TEAMS',
+    target: 3, suffix: '+', label: 'ACTIVE TEAMS',
   },
 ]
+
+function StatCard({ stat, active, delay }: { stat: typeof stats[0]; active: boolean; delay: number }) {
+  const count = useCountUp(stat.target, active, 1300 + delay)
+  return (
+    <div className="insights-card">
+      <div className="insights-icon">{stat.icon}</div>
+      <span className="insights-value">{count}{stat.suffix}</span>
+      <span className="insights-label">{stat.label}</span>
+    </div>
+  )
+}
+
+const BAR_COLORS = ['#e53e3e', '#f59e0b', '#3b82f6', '#10b981', '#a855f7', '#ec4899', '#14b8a6', '#f97316']
+
+function LabUtilizationChart({ active }: { active: boolean }) {
+  const { labs } = useLabs()
+
+  const breakdown = useMemo(() => {
+    const counts: Record<string, number> = {}
+    labs.forEach(l => { counts[l.category] = (counts[l.category] || 0) + 1 })
+    const max = Math.max(...Object.values(counts), 1)
+    return Object.entries(counts)
+      .sort((a, b) => b[1] - a[1])
+      .map(([category, count], i) => ({
+        category, count, pct: (count / max) * 100, color: BAR_COLORS[i % BAR_COLORS.length],
+      }))
+  }, [labs])
+
+  if (breakdown.length === 0) return null
+
+  return (
+    <div className="insights-chart-panel">
+      <h3 className="insights-chart-title">Labs by Category</h3>
+      <div className="insights-bars">
+        {breakdown.map(b => (
+          <div className="insights-bar-row" key={b.category}>
+            <span className="insights-bar-label">{b.category}</span>
+            <div className="insights-bar-track">
+              <div
+                className="insights-bar-fill"
+                style={{
+                  width: active ? `${b.pct}%` : '0%',
+                  background: b.color,
+                }}
+              />
+            </div>
+            <span className="insights-bar-count">{b.count}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 export default function PlatformInsights() {
   const { ref: headRef, visible: headVisible } = useInView()
   const { ref: gridRef, visible: gridVisible } = useInView()
 
   return (
-    <section className="insights-section">
+    <section className="insights-section" id="insights">
       <div
         ref={headRef as React.RefObject<HTMLDivElement>}
         className={`insights-header reveal${headVisible ? ' visible' : ''}`}
@@ -58,14 +114,12 @@ export default function PlatformInsights() {
         ref={gridRef as React.RefObject<HTMLDivElement>}
         className={`insights-grid stagger${gridVisible ? ' visible' : ''}`}
       >
-        {stats.map(stat => (
-          <div className="insights-card" key={stat.label}>
-            <div className="insights-icon">{stat.icon}</div>
-            <span className="insights-value">{stat.value}</span>
-            <span className="insights-label">{stat.label}</span>
-          </div>
+        {stats.map((stat, i) => (
+          <StatCard stat={stat} active={gridVisible} delay={i * 120} key={stat.label} />
         ))}
       </div>
+
+      <LabUtilizationChart active={gridVisible} />
     </section>
   )
 }

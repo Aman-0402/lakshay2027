@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useLocation } from 'wouter'
 import { useAuth } from '../context/AuthContext'
 import { api } from '../lib/api'
-import { ALL_LABS } from '../data/labsData'
+import { useLabs } from '../hooks/useLabs'
 import DashboardLayout from '../components/DashboardLayout'
 
 interface Booking {
@@ -25,6 +25,7 @@ export default function AdminDashboard() {
   const [busyId, setBusyId] = useState<number | null>(null)
   const [filter, setFilter] = useState<'all' | 'pending' | 'approved' | 'rejected'>('pending')
   const [search, setSearch] = useState('')
+  const { labs } = useLabs()
 
   useEffect(() => {
     if (!user) { navigate('/login'); return }
@@ -98,7 +99,7 @@ export default function AdminDashboard() {
         </div>
         <div className="dl-card">
           <span className="dl-card-icon dl-icon-labs">🧪</span>
-          <span className="dl-card-num">{ALL_LABS.length}</span>
+          <span className="dl-card-num">{labs.length}</span>
           <span className="dl-card-label">Total Labs</span>
         </div>
         <div className="dl-card">

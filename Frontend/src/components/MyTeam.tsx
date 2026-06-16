@@ -14,7 +14,7 @@ export default function MyTeam() {
   const { ref: gridRef, visible: gridVisible } = useInView()
 
   return (
-    <section className="team-section">
+    <section className="team-section" id="my-team">
       <div
         ref={headRef as React.RefObject<HTMLDivElement>}
         className={`team-header reveal${headVisible ? ' visible' : ''}`}
@@ -35,6 +35,7 @@ export default function MyTeam() {
             <div className="team-card" key={m.name}>
               <img src={m.img} alt={m.name} className="team-avatar" />
               <h3 className="team-name">{m.name}</h3>
+              <div className="team-accent-line" />
               <p className="team-role">{m.role}</p>
             </div>
           ))}

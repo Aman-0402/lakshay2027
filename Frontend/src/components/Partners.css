@@ -51,11 +51,11 @@
 .partner-card {
   background: #f0ede8;
   border-radius: 18px;
-  padding: 48px 32px 40px;
+  padding: 44px 32px 36px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: 14px;
   text-align: center;
   transition: transform 0.25s, box-shadow 0.25s;
   cursor: pointer;
@@ -82,6 +82,15 @@
   transform: scale(1.15);
 }
 
+.partner-role {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #e53e3e;
+  margin: 0;
+}
+
 .partner-name {
   font-size: 11px;
   font-weight: 800;
@@ -90,4 +99,53 @@
   color: #333;
   margin: 0;
   line-height: 1.5;
+}
+
+.partner-desc {
+  font-size: 12.5px;
+  color: #888;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── CTA ── */
+.partners-cta {
+  max-width: 700px;
+  margin: 56px auto 0;
+  text-align: center;
+  background: #0a0a0a;
+  border-radius: 20px;
+  padding: 44px 40px;
+}
+
+.partners-cta-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+  margin: 0 0 10px;
+}
+
+.partners-cta-text {
+  font-size: 13.5px;
+  color: #888;
+  margin: 0 0 24px;
+  line-height: 1.6;
+}
+
+.partners-cta-btn {
+  display: inline-block;
+  background: #fff;
+  color: #0a0a0a;
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 800;
+  padding: 13px 28px;
+  border-radius: 999px;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.partners-cta-btn:hover {
+  opacity: 0.85;
+  transform: translateY(-2px);
 }

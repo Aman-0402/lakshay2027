@@ -30,9 +30,9 @@ export default function Navbar() {
         </Link>
         <ul className="navbar-links">
           <li><Link href="/labs" className={location.startsWith('/labs') ? 'nav-active' : ''}>Labs</Link></li>
-          <li><a href="#">Insights</a></li>
-          <li><a href="#">Partners</a></li>
-          <li><a href="#">My Team</a></li>
+          <li><Link href="/insights" className={location === '/insights' ? 'nav-active' : ''}>Insights</Link></li>
+          <li><Link href="/partners" className={location === '/partners' ? 'nav-active' : ''}>Partners</Link></li>
+          <li><Link href="/my-team" className={location === '/my-team' ? 'nav-active' : ''}>My Team</Link></li>
         </ul>
         <div className="navbar-actions">
           {user ? (

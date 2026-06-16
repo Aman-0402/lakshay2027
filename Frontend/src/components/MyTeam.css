@@ -65,6 +65,7 @@
 }
 
 .team-card {
+  position: relative;
   background: #141414;
   border: 1px solid #222;
   border-radius: 18px;
@@ -74,29 +75,48 @@
   align-items: center;
   text-align: center;
   gap: 14px;
-  transition: border-color 0.2s, transform 0.25s;
+  overflow: hidden;
+  transition: border-color 0.25s, transform 0.3s;
+}
+
+.team-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(229, 62, 62, 0.12), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
 .team-card:hover {
   border-color: #3a3a3a;
-  transform: translateY(-4px);
+  transform: translateY(-6px);
+}
+
+.team-card:hover::before {
+  opacity: 1;
 }
 
 .team-avatar {
+  position: relative;
+  z-index: 1;
   width: 96px;
   height: 96px;
   border-radius: 50%;
   object-fit: cover;
   object-position: top;
   border: 2px solid #2a2a2a;
-  transition: border-color 0.2s;
+  transition: border-color 0.25s, transform 0.35s;
 }
 
 .team-card:hover .team-avatar {
   border-color: #e53e3e;
+  transform: scale(1.08);
 }
 
 .team-name {
+  position: relative;
+  z-index: 1;
   font-size: 16px;
   font-weight: 800;
   color: #ffffff;
@@ -105,8 +125,24 @@
 }
 
 .team-role {
+  position: relative;
+  z-index: 1;
   font-size: 13px;
   color: #666;
   margin: 0;
   line-height: 1.5;
+}
+
+.team-accent-line {
+  position: relative;
+  z-index: 1;
+  width: 0;
+  height: 2px;
+  background: #e53e3e;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.team-card:hover .team-accent-line {
+  width: 32px;
 }

@@ -4,14 +4,13 @@ import Navbar from './components/Navbar'
 import ScrollToTop from './components/ScrollToTop'
 import Hero from './components/Hero'
 import LabsSection from './components/LabsSection'
-import PlatformInsights from './components/PlatformInsights'
-import Partners from './components/Partners'
-import MyTeam from './components/MyTeam'
-import EthnotechTeam from './components/EthnotechTeam'
 import Footer from './components/Footer'
 import LabTicker from './components/LabTicker'
 import Labs from './pages/Labs'
 import LabDetail from './pages/LabDetail'
+import Insights from './pages/Insights'
+import PartnersPage from './pages/PartnersPage'
+import MyTeamPage from './pages/MyTeamPage'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import StudentDashboard from './pages/StudentDashboard'
@@ -30,6 +29,7 @@ import './components/EthnotechTeam.css'
 import './components/Footer.css'
 import './pages/Labs.css'
 import './pages/LabDetail.css'
+import './pages/About.css'
 import './pages/Auth.css'
 import './pages/Dashboard.css'
 import './components/DashboardLayout.css'
@@ -40,11 +40,6 @@ function Home() {
       <Hero />
       <LabTicker />
       <LabsSection />
-      <PlatformInsights />
-      <Partners />
-      <MyTeam />
-      <EthnotechTeam />
-      <Footer />
     </>
   )
 }
@@ -56,6 +51,9 @@ function App() {
       <Navbar />
       <Switch>
         <Route path="/" component={Home} />
+        <Route path="/insights" component={Insights} />
+        <Route path="/partners" component={PartnersPage} />
+        <Route path="/my-team" component={MyTeamPage} />
         <Route path="/labs" component={Labs} />
         <Route path="/labs/:slug" component={LabDetail} />
         <Route path="/login" component={Login} />
@@ -64,6 +62,7 @@ function App() {
         <Route path="/admin-dashboard" component={AdminDashboard} />
         <Route path="/admin-dashboard/labs" component={ManageLabs} />
       </Switch>
+      <Footer />
     </AuthProvider>
   )
 }
